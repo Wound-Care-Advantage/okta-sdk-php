@@ -59,69 +59,69 @@ class OauthCommTest extends BaseIntegrationTestCase
         $this->assertStringContainsString('SSWS ', $requests[0]->getHeaders()['Authorization'][0]);
     }
 
-    /** @test */
-    public function a_call_with_private_key_uses_correct_header()
-    {
-        $this->markTestSkipped('This test is skipped due to some issues with previous tests.');
-        \Okta\Client::destroy();
-        if(!$this->isMockingResponses()) {
-            $this->markTestSkipped('This test is skipped as we need to mock responses');
-        }
+//    /** @test */
+//    public function a_call_with_private_key_uses_correct_header()
+//    {
+//        $this->markTestSkipped('This test is skipped due to some issues with previous tests.');
+//        \Okta\Client::destroy();
+//        if(!$this->isMockingResponses()) {
+//            $this->markTestSkipped('This test is skipped as we need to mock responses');
+//        }
+//
+//        $time=time();
+//        $userResponse = file_get_contents(__DIR__ .'/../responses/users/activateUser/create.json');
+//
+//        $client = $this->createNewHttpClient([
+//            ["getBody"=>$userResponse] //create user
+//        ],
+//        new AuthorizationMode(AuthorizationMode::PRIVATE_KEY));
+//
+//        // Create a user
+//        $userProfile = (new UserProfile)
+//            ->setFirstName('Oauth')
+//            ->setLastName('User')
+//            ->setLogin('php_oauth_user_'.$time.'@mailinator.com')
+//            ->setEmail('php_oauth_user_'.$time.'@mailinator.com');
+//
+//        $user = (new User)
+//            ->setProfile($userProfile)
+//            ->create();
+//
+//        $createdUser = $user->create(['activate'=>'false']);
+//
+//        $createdUser->deactivate();
+//        $createdUser->delete();
+//
+//        $requests = $client->getRequests();
+//        $this->assertStringContainsString('Bearer ', $requests[0]->getHeaders()['Authorization'][0]);
+//    }
 
-        $time=time();
-        $userResponse = file_get_contents(__DIR__ .'/../responses/users/activateUser/create.json');
-
-        $client = $this->createNewHttpClient([
-            ["getBody"=>$userResponse] //create user
-        ],
-        new AuthorizationMode(AuthorizationMode::PRIVATE_KEY));
-
-        // Create a user
-        $userProfile = (new UserProfile)
-            ->setFirstName('Oauth')
-            ->setLastName('User')
-            ->setLogin('php_oauth_user_'.$time.'@mailinator.com')
-            ->setEmail('php_oauth_user_'.$time.'@mailinator.com');
-
-        $user = (new User)
-            ->setProfile($userProfile)
-            ->create();
-
-        $createdUser = $user->create(['activate'=>'false']);
-
-        $createdUser->deactivate();
-        $createdUser->delete();
-
-        $requests = $client->getRequests();
-        $this->assertStringContainsString('Bearer ', $requests[0]->getHeaders()['Authorization'][0]);
-    }
-
-    /** @test */
-    public function a_call_with_correct_scopes_to_create_user_will_work()
-    {
-        $this->markTestSkipped('This test is skipped due to some issues with previous tests.');
-        \Okta\Client::destroy();
-        $time = time();
-        $client = (new ClientBuilder)
-            ->setAuthorizationMode(new AuthorizationMode(AuthorizationMode::PRIVATE_KEY))
-            ->build();
-
-            // Create a user
-            $userProfile = (new UserProfile)
-                ->setFirstName('Oauth')
-                ->setLastName('User')
-                ->setLogin('php_oauth_user_'.$time.'@mailinator.com')
-                ->setEmail('php_oauth_user_'.$time.'@mailinator.com');
-
-            $user = (new User)
-                ->setProfile($userProfile)
-                ->create();
-
-            $this->assertInstanceOf(User::class, $user);
-            $this->assertNotEmpty($user->id, 'It appears the user was not created');
-
-            $user->deactivate();
-            $user->delete();
-
-    }
+//    /** @test */
+//    public function a_call_with_correct_scopes_to_create_user_will_work()
+//    {
+//        $this->markTestSkipped('This test is skipped due to some issues with previous tests.');
+//        \Okta\Client::destroy();
+//        $time = time();
+//        $client = (new ClientBuilder)
+//            ->setAuthorizationMode(new AuthorizationMode(AuthorizationMode::PRIVATE_KEY))
+//            ->build();
+//
+//            // Create a user
+//            $userProfile = (new UserProfile)
+//                ->setFirstName('Oauth')
+//                ->setLastName('User')
+//                ->setLogin('php_oauth_user_'.$time.'@mailinator.com')
+//                ->setEmail('php_oauth_user_'.$time.'@mailinator.com');
+//
+//            $user = (new User)
+//                ->setProfile($userProfile)
+//                ->create();
+//
+//            $this->assertInstanceOf(User::class, $user);
+//            $this->assertNotEmpty($user->id, 'It appears the user was not created');
+//
+//            $user->deactivate();
+//            $user->delete();
+//
+//    }
 }

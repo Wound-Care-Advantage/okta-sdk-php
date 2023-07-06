@@ -29,6 +29,8 @@ class Okta
 {
 
     const VERSION = '1.3.0';
+    private Client $client;
+    private DefaultDataStore $dataStore;
 
     public function __construct(Client $client = null, DefaultDataStore $dataStore = null)
     {

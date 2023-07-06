@@ -18,7 +18,7 @@
 namespace Okta;
 
 use Http\Client\HttpClient;
-use Okta\Cache\CacheManager;
+//use Okta\Cache\CacheManager;
 use Symfony\Component\Yaml\Parser;
 use Okta\Utilities\AuthorizationMode;
 
@@ -31,57 +31,61 @@ class ClientBuilder
     /**
      * @var string $token The API token for your Okta organization.
      */
-    private $token;
+    private string $token = '';
 
     /**
      * @var string $organizationUrl The full url of your organization, (eg. https://dev-123456.okta.com).
      */
-    private $organizationUrl;
+    private string $organizationUrl = '';
 
     /**
      * @var string|null $configFileLocation The full path to the config file location.
      */
-    private $configFileLocation = null;
+    private ?string $configFileLocation = null;
 
     /**
      * @var HttpClient $httpClient An instance of HttpClient to use for communicating with Okta.
      */
-    private $httpClient;
+    private HttpClient $httpClient;
 
     /**
      * @var string $integrationUserAgent The integrations UserAgent string to add to the base UserAgent.
      */
-    private $integrationUserAgent;
+    private string $integrationUserAgent = '';
 
-    /**
-     * @var CacheManager $cacheManager The CacheManager Instance to use for caching.
-     */
-    private $cacheManager;
+//    /**
+//     * @var CacheManager $cacheManager The CacheManager Instance to use for caching.
+//     */
+//    private ?CacheManager $cacheManager = null;
 
     /**
      * @var AuthorizationMode $authorizationMode The Authorization Mode to use for api calls.
      */
-    private $authorizationMode;
+    private ?AuthorizationMode $authorizationMode = null;
 
     /**
      * @var string $clientId The client id of the application.
      */
-    private $clientId;
+    private string $clientId = '';
 
     /**
      * @var string $scopes The scopes for the bearer token.
      */
-    private $scopes;
+    private string $scopes = '';
 
     /**
      * @var string $privateKey The private key for the bearer token.
      */
-    private $privateKey;
+    private string $privateKey = '';
 
     /**
      * @var string $defaultFile Path from home directory to default yaml file.
      */
-    private $defaultFile = '.okta/okta.yaml';
+    private string $defaultFile = '.okta/okta.yaml';
+    /**
+     * @var mixed|Parser
+     */
+    private mixed $yamlParser;
 
     public function __construct($yamlParser = null, $defaultFilePath = null)
     {
@@ -168,17 +172,17 @@ class ClientBuilder
         return $this;
     }
 
-    /**
-     * Set the CacheManager Instance.
-     *
-     * @param CacheManager $cacheManager The CacheManager instance that you want to use.
-     * @return ClientBuilder
-     */
-    public function setCacheManager(CacheManager $cacheManager): ClientBuilder
-    {
-        $this->cacheManager = $cacheManager;
-        return $this;
-    }
+//    /**
+//     * Set the CacheManager Instance.
+//     *
+//     * @param CacheManager $cacheManager The CacheManager instance that you want to use.
+//     * @return ClientBuilder
+//     */
+//    public function setCacheManager(CacheManager $cacheManager): ClientBuilder
+//    {
+//        $this->cacheManager = $cacheManager;
+//        return $this;
+//    }
 
     /**
      * Set the Authorizaiton Mode.
@@ -260,7 +264,7 @@ class ClientBuilder
             $this->organizationUrl,
             $this->httpClient,
             $this->integrationUserAgent,
-            $this->cacheManager,
+            null,
             $this->authorizationMode
         );
     }
